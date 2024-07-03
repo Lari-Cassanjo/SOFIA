@@ -1,13 +1,13 @@
-from imdb import Cinemagoer, IMDbError
+import requests
+import buscas
 
 from time import sleep
 from datetime import datetime
-from random import randint
+import random
 from os import system
 system('cls')
 
-# create an instance of the Cinemagoer class
-ia = Cinemagoer()
+api_key = 'a8b56b86a83dee254fadcaf769bd55dc'
 
 usuario = 'Larissa'
 
@@ -45,20 +45,31 @@ while selecao != 1 or selecao != 2 or selecao != 3:
             escolha = int(input('Gostaria de digitar (1) ou que eu escolha para você (2)? '))
             if escolha == 1:
                 genero = input('Digite o gênero de filme que quer ver: ')
-                pgenero = ia.search_keyword(genero)
-                ngenero = len(pgenero)
-                ngenero = randint(1, ngenero)
-                genero = pgenero[ngenero]
-                filme = 'filme'
+                genero_id = buscas.buscar_genero_id(genero, api_key)
+                if genero_id:
+                    filmes = buscas.buscar_filmes_por_genero(genero_id, api_key)
+                    if filmes:
+                        filme = random.choice(filmes)
+                else:
+                    print("Gênero não encontrado.")
                 break
             elif escolha == 2:
-                genero = 'random'
-                filme = 'ramdom'
+                generos = buscas.buscar_generos(api_key)
+                if generos:
+                    genero = random.choice(generos)
+                    genero_id = genero['id']
+                    genero_nome = genero['name']
+                    
+                    filmes = buscas.buscar_filmes_por_genero(genero_id, api_key)
+                    if filmes:
+                        filme = random.choice(filmes)
+                else:
+                    print("Não foi possível obter a lista de gêneros.")
                 break
             else:
                 print('Escolha inválida!')
         #teste
-        print(f'Filme do gênero {genero}: {filme}')
+        print(f'Filme do gênero {genero['name']}: {filme['title']}, {filme['release_date'][:4]}')
         break
     elif selecao == 2:
         print('Qual a atriz ou ator que você quer ver hoje?')
