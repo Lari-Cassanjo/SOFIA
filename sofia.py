@@ -1,7 +1,8 @@
-from imdb import Cinemagoer
+from imdb import Cinemagoer, IMDbError
 
 from time import sleep
 from datetime import datetime
+from random import randint
 from os import system
 system('cls')
 
@@ -30,7 +31,7 @@ else:
     
 print(f'{cumprimento}, Lari!')
 sleep(1)
-print('Como quer esccolher o filme de hoje?')
+print('Como quer escolher o filme de hoje?')
 print('1- Gênero \n2- Atriz/Ator \n3- Diretor(a)')
 sleep(1)
 
@@ -41,17 +42,23 @@ while selecao != 1 or selecao != 2 or selecao != 3:
         print('Ótimo. Primeiro preciso saber o gênero de filme que quer ver.')
         escolha = 0
         while escolha != 1 or escolha != 2:
-            escolha = int(input('Gostaria de digitar (1) ou que eu escolha para você (2)?'))
+            escolha = int(input('Gostaria de digitar (1) ou que eu escolha para você (2)? '))
             if escolha == 1:
                 genero = input('Digite o gênero de filme que quer ver: ')
+                pgenero = ia.search_keyword(genero)
+                ngenero = len(pgenero)
+                ngenero = randint(1, ngenero)
+                genero = pgenero[ngenero]
+                filme = 'filme'
                 break
             elif escolha == 2:
                 genero = 'random'
+                filme = 'ramdom'
                 break
             else:
                 print('Escolha inválida!')
         #teste
-        print(f'Filme do gênero {genero}.')
+        print(f'Filme do gênero {genero}: {filme}')
         break
     elif selecao == 2:
         print('Qual a atriz ou ator que você quer ver hoje?')
