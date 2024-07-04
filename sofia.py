@@ -88,12 +88,19 @@ while selecao != 1 or selecao != 2 or selecao != 3:
         break
     elif selecao == 3:
         print('Qual a diretora ou diretor que você quer assitir hoje?')
-        diretora = input('- ')
-        #teste
-        print(f'Filme com a(o) {diretora}.')
+        nome_diretor = input('- ')
+        diretor_id = buscas.buscar_diretor_id(nome_diretor,api_key)
+        if diretor_id:
+            filmes = buscas.buscar_filme_por_diretor(diretor_id,api_key)
+            if filmes:
+                filme_aleatorio = random.choice(filmes)
+                print(f'Filme: {filme_aleatorio['title']}, {filme_aleatorio['release_date'][:4]}')
+            else:
+                print(f'Nenhum filme encontrado para {nome_diretor}.')
+        else:
+            print(f'{nome_diretor} não encontrada(o)!')
         break
     else:
         print('Seleção Inválida')
 
 print('Aproveite o filme!')
-    

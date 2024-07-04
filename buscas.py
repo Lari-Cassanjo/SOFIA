@@ -53,3 +53,23 @@ def buscar_filmes_por_ator(ator_id, api_key):
         return data['cast']
     else:
         return []
+    
+#Função para buscar a id do diretor
+def buscar_diretor_id(nome_diretor, api_key):
+    url = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={nome_diretor}&language=pt-BR"
+    response = requests.get(url)
+    data = response.json()
+    if 'results' in data and data['results']:
+        return data['results'][0]['id']
+    else:
+        return None
+
+#Função para buscar os filmes do diretor pela id
+def buscar_filme_por_diretor(diretor_id, api_key):
+    url = f"https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_crew={diretor_id}&language=pt-BR"
+    response = requests.get(url)
+    data = response.json()
+    if 'results' in data:
+        return data['results']
+    else:
+        return []
