@@ -32,11 +32,11 @@ else:
 print(f'{cumprimento}, Lari!')
 sleep(1)
 print('Como quer escolher o filme de hoje?')
-print('1- Gênero \n2- Atriz/Ator \n3- Diretor(a)')
+print('1- Gênero \n2- Atriz/Ator \n3- Diretor(a)  \n4- Completamente Aleatório')
 sleep(1)
 
 selecao = 0
-while selecao != 1 or selecao != 2 or selecao != 3:
+while selecao != 1 or selecao != 2 or selecao != 3 or selecao != 4:
     selecao = int(input('Seletor: '))
     if selecao == 1:
         print('Ótimo. Primeiro preciso saber o gênero de filme que quer ver.')
@@ -99,6 +99,9 @@ while selecao != 1 or selecao != 2 or selecao != 3:
                 print(f'Nenhum filme encontrado para {nome_diretor}.')
         else:
             print(f'{nome_diretor} não encontrada(o)!')
+        break
+    elif selecao == 4:
+        print('Filme Aleatório')
         break
     else:
         print('Seleção Inválida')
