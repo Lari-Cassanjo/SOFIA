@@ -83,3 +83,15 @@ def obter_filmes_da_pagina(api_key, pagina):
         return data['results']
     else:
         return []
+
+# Função para obter detalhes do filme
+def obter_detalhes_do_filme(api_key, filme_id):
+    url = f"https://api.themoviedb.org/3/movie/{filme_id}?api_key={api_key}&language=pt-BR"
+    response = requests.get(url)
+    return response.json()
+
+# Função para obter elenco e equipe do filme
+def obter_elenco_e_equipe(api_key, filme_id):
+    url = f"https://api.themoviedb.org/3/movie/{filme_id}/credits?api_key={api_key}&language=pt-BR"
+    response = requests.get(url)
+    return response.json()
