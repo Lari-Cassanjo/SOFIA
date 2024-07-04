@@ -73,3 +73,13 @@ def buscar_filme_por_diretor(diretor_id, api_key):
         return data['results']
     else:
         return []
+
+# Função para obter filmes de uma página específica
+def obter_filmes_da_pagina(api_key, pagina):
+    url = f"https://api.themoviedb.org/3/discover/movie?api_key={api_key}&language=pt-BR&page={pagina}"
+    response = requests.get(url)
+    data = response.json()
+    if 'results' in data:
+        return data['results']
+    else:
+        return []

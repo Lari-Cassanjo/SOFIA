@@ -101,7 +101,13 @@ while selecao != 1 or selecao != 2 or selecao != 3 or selecao != 4:
             print(f'{nome_diretor} não encontrada(o)!')
         break
     elif selecao == 4:
-        print('Filme Aleatório')
+        pagina_aleatoria = random.randint(1, 500)
+        filmes = buscas.obter_filmes_da_pagina(api_key, pagina_aleatoria)
+        if filmes:
+            filme_aleatorio = random.choice(filmes)
+            print(f"Filme: {filme_aleatorio['title']}, {filme_aleatorio['release_date'][:4]}")
+        else:
+            print("Nenhum filme encontrado.")
         break
     else:
         print('Seleção Inválida')
